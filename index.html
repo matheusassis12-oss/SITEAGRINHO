@@ -3,213 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agrinho 2026 - Tecnologia no Campo</title>
+    <title>Agrinho 2026 | Tecnologia no Campo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="cursor" id="cursor"></div>
-    
-    <div class="content">
-        <header class="header" id="header">
-            <div class="header-inner">
-                <div class="logo">
-                    <span>🌱</span>
-                    <span>AGRINHO 26</span>
+
+    <header class="header" id="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <span>🌱</span> AGRINHO 26
+            </a>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#tech">Tecnologias</a>
+                <a href="#stats">Dados</a>
+                <a href="#timeline">Jornada</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <span class="badge">🌾 Edição 2026</span>
+                    <h1>Tecnologia <span class="gradient">no Campo</span></h1>
+                    <p>Inteligência Artificial revolucionando a agricultura com mais produtividade e sustentabilidade.</p>
+                    <div class="hero-btns">
+                        <a href="#tech" class="btn btn-primary">Explorar →</a>
+                        <a href="#timeline" class="btn btn-outline">Saiba Mais</a>
+                    </div>
                 </div>
-                <nav class="nav">
+                <div class="hero-graphic">
+                    <div class="circle"></div>
+                    <div class="circle-small"></div>
+                    <div class="floating-icon icon-1">🤖</div>
+                    <div class="floating-icon icon-2">🛰️</div>
+                    <div class="floating-icon icon-3">📊</div>
+                </div>
+            </div>
+            <div class="scroll-down">
+                <span>Role para baixo</span>
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech" id="tech">
+            <div class="container">
+                <div class="section-header">
+                    <span class="badge">Inovações</span>
+                    <h2>Tecnologias que Transformam</h2>
+                </div>
+                <div class="cards">
+                    <article class="card">
+                        <div class="card-icon">🤖</div>
+                        <h3>Inteligência Artificial</h3>
+                        <p>Algoritmos que analisam dados em tempo real, preveem safras e detectam pragas automaticamente.</p>
+                        <ul>
+                            <li>Previsão de safras</li>
+                            <li>Detecção de pragas</li>
+                            <li>Otimização de recursos</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon">🛰️</div>
+                        <h3>Drones Inteligentes</h3>
+                        <p>Veículos autônomos que mapeiam plantações e aplicam insumos com precisão milimétrica.</p>
+                        <ul>
+                            <li>Mapeamento aéreo</li>
+                            <li>Aplicação precisa</li>
+                            <li>Monitoramento 24/7</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon">📊</div>
+                        <h3>Big Data Rural</h3>
+                        <p>Milhões de dados conectando clima, solo e mercado para decisões inteligentes.</p>
+                        <ul>
+                            <li>Análise de dados</li>
+                            <li>Previsão climática</li>
+                            <li>Gestão inteligente</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats" id="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-icon">📈</span>
+                        <div class="stat-number">
+                            <span class="counter" data-target="40">0</span>%
+                        </div>
+                        <p>Aumento de Produtividade</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">💧</span>
+                        <div class="stat-number">
+                            <span class="counter" data-target="30">0</span>%
+                        </div>
+                        <p>Redução de Desperdício</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🎯</span>
+                        <div class="stat-number">
+                            <span class="counter" data-target="99">0</span>%
+                        </div>
+                        <p>Precisão no Monitoramento</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline" id="timeline">
+            <div class="container">
+                <div class="section-header">
+                    <span class="badge">Jornada</span>
+                    <h2>Evolução da Tecnologia no Campo</h2>
+                </div>
+                <div class="timeline-list">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-box">
+                            <span class="year">2020</span>
+                            <h4>Início da Digitalização</h4>
+                            <p>Primeiros sensores e coleta de dados nas lavouras</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-box">
+                            <span class="year">2022</span>
+                            <h4>IA e Machine Learning</h4>
+                            <p>Algoritmos começam a prever padrões e identificar pragas</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-box">
+                            <span class="year">2024</span>
+                            <h4>Drones Autônomos</h4>
+                            <p>Mapeamento e pulverização de precisão em larga escala</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-box">
+                            <span class="year">2026</span>
+                            <h4>Revolução AgroTech</h4>
+                            <p>Integração total: IA, IoT, Drones e Big Data</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span>🌱</span>
+                <h3>AGRINHO 2026</h3>
+                <p>Tecnologia e IA transformando o agro brasileiro</p>
+            </div>
+            <div class="footer-links">
+                <div>
+                    <h4>Navegação</h4>
                     <a href="#home">Home</a>
                     <a href="#tech">Tecnologias</a>
                     <a href="#stats">Dados</a>
                     <a href="#timeline">Jornada</a>
-                </nav>
-            </div>
-        </header>
-
-        <section class="hero" id="home">
-            <div class="hero-grid">
-                <div class="hero-text">
-                    <span class="chip">🌾 Edição 2026</span>
-                    <h1>
-                        Tecnologia
-                        <span class="highlight">no Campo</span>
-                    </h1>
-                    <p>
-                        Inteligência Artificial revolucionando a agricultura com 
-                        mais produtividade, sustentabilidade e inovação.
-                    </p>
-                    <div class="hero-actions">
-                        <button class="btn btn-primary">Explorar →</button>
-                        <button class="btn btn-outline">Saiba Mais</button>
-                    </div>
                 </div>
-                <div class="hero-visual">
-                    <div class="orbit">
-                        <div class="orbit-ring ring-1"></div>
-                        <div class="orbit-ring ring-2"></div>
-                        <div class="orbit-ring ring-3"></div>
-                        <div class="orbit-center">
-                            <span>🌱</span>
-                        </div>
-                        <div class="orbit-dot dot-1">🤖</div>
-                        <div class="orbit-dot dot-2">🛰️</div>
-                        <div class="orbit-dot dot-3">📊</div>
-                    </div>
+                <div>
+                    <h4>Tecnologias</h4>
+                    <a href="#">Inteligência Artificial</a>
+                    <a href="#">Drones</a>
+                    <a href="#">Big Data</a>
                 </div>
             </div>
-            <div class="scroll-hint">
-                <span>Role para baixo</span>
-                <div class="scroll-icon"></div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2026 Agrinho | #TecnologiaNoCampo</p>
             </div>
-        </section>
-
-        <section class="tech-section" id="tech">
-            <div class="section-head">
-                <span class="chip">Inovações</span>
-                <h2>Tecnologias que Transformam</h2>
-                <p>Soluções inteligentes para o agronegócio do futuro</p>
-            </div>
-
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-shine"></div>
-                    <div class="card-icon">🤖</div>
-                    <h3>Inteligência Artificial</h3>
-                    <p>Algoritmos que analisam dados em tempo real, preveem safras e detectam pragas automaticamente.</p>
-                    <ul class="card-list">
-                        <li>Previsão de safras</li>
-                        <li>Detecção de pragas</li>
-                        <li>Otimização de recursos</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-shine"></div>
-                    <div class="card-icon">🛰️</div>
-                    <h3>Drones Inteligentes</h3>
-                    <p>Veículos autônomos que mapeiam plantações e aplicam insumos com precisão milimétrica.</p>
-                    <ul class="card-list">
-                        <li>Mapeamento aéreo</li>
-                        <li>Aplicação precisa</li>
-                        <li>Monitoramento 24/7</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-shine"></div>
-                    <div class="card-icon">📊</div>
-                    <h3>Big Data Rural</h3>
-                    <p>Milhões de dados processados conectando clima, solo e mercado para decisões inteligentes.</p>
-                    <ul class="card-list">
-                        <li>Análise de dados</li>
-                        <li>Previsão climática</li>
-                        <li>Gestão inteligente</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="stats-section" id="stats">
-            <div class="stats-row">
-                <div class="stat">
-                    <div class="stat-icon">📈</div>
-                    <div class="stat-value">
-                        <span class="stat-number" data-target="40">0</span>
-                        <span class="stat-unit">%</span>
-                    </div>
-                    <p>Aumento de Produtividade</p>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <div class="stat-icon">💧</div>
-                    <div class="stat-value">
-                        <span class="stat-number" data-target="30">0</span>
-                        <span class="stat-unit">%</span>
-                    </div>
-                    <p>Redução de Desperdício</p>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <div class="stat-icon">🎯</div>
-                    <div class="stat-value">
-                        <span class="stat-number" data-target="99">0</span>
-                        <span class="stat-unit">%</span>
-                    </div>
-                    <p>Precisão no Monitoramento</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="timeline-section" id="timeline">
-            <div class="section-head">
-                <span class="chip">Jornada</span>
-                <h2>Evolução da Tecnologia no Campo</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-line"></div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="year">2020</span>
-                        <h4>Início da Digitalização</h4>
-                        <p>Primeiros sensores e coleta de dados nas lavouras brasileiras</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="year">2022</span>
-                        <h4>IA e Machine Learning</h4>
-                        <p>Algoritmos começam a prever padrões climáticos e identificar pragas</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="year">2024</span>
-                        <h4>Drones Autônomos</h4>
-                        <p>Mapeamento e pulverização de precisão em larga escala</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="year">2026</span>
-                        <h4>Revolução AgroTech</h4>
-                        <p>Integração total: IA, IoT, Drones e Big Data no campo</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="footer">
-            <div class="footer-inner">
-                <div class="footer-brand">
-                    <span class="footer-logo">🌱</span>
-                    <h3>AGRINHO 2026</h3>
-                    <p>Tecnologia e IA transformando o agro brasileiro</p>
-                </div>
-                <div class="footer-links">
-                    <div>
-                        <h4>Navegação</h4>
-                        <a href="#home">Home</a>
-                        <a href="#tech">Tecnologias</a>
-                        <a href="#stats">Dados</a>
-                        <a href="#timeline">Jornada</a>
-                    </div>
-                    <div>
-                        <h4>Tecnologias</h4>
-                        <a href="#">Inteligência Artificial</a>
-                        <a href="#">Drones</a>
-                        <a href="#">Big Data</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 Agrinho - Todos os direitos reservados</p>
-                <p class="hashtag">#Agrinho2026 #TecnologiaNoCampo</p>
-            </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
