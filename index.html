@@ -1,1 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrinho 2026 - Tecnologia no Campo 🌱🚀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0a0f0d 0%, #1a2f1f 50%, #0d1a0d 100%);
+            overflow-x: hidden;
+            cursor: none;
+            min-height: 100vh;
+            color: #e8ffe8;
+        }
+
+        /* Rastro do mouse ULTRA FODA */
+        .cursor-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+        }
+
+        .trail-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            border-radius: 50%;
+            animation: trailFade 0.8s ease-out forwards;
+        }
+
+        @keyframes trailFade {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Cursor personalizado */
+        .custom-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #00ff88, #00cc66);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px #00ff88, 0 0 60px #00ff88, 0 0 90px #00cc66;
+            transition: width 0.2s, height 0.2s;
+        }
+
+        .custom-cursor.active {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ff6b35, #ff4500);
+            box-shadow: 0 0 40px #ff6b35, 0 0 80px #ff6b35;
+        }
+
+        /* Container 3D */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Conteúdo principal */
+        .content {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .title-container {
+            perspective: 1000px;
+            margin-bottom: 40px;
+        }
+
+        .main-title {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, #00ff88, #00cc66, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 100px rgba(0, 255, 136, 0.5);
+            animation: titlePulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.3));
+        }
+
+        @keyframes titlePulse {
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.3));
+            }
+            50% {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 60px rgba(0, 255, 136, 0.6));
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #86efac;
+            margin-top: 20px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #4ade80;
+            margin-top: 30px;
+            padding: 15px 40px;
+            border: 2px solid #00ff88;
+            border-radius: 50px;
+            background: rgba(0, 255, 136, 0.05);
+            backdrop-filter: blur(10px);
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(0, 255, 136, 0.8), 0 0 100px rgba(0, 255, 136, 0.4);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards Section */
+        .cards-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(0, 30, 10, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0) rotateY(0);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+            border-color: #00ff88;
+            box-shadow: 0 30px 80px rgba(0, 255, 136, 0.3), 0 0 100px rgba(0, 255, 136, 0.2);
+            background: rgba(0, 40, 15, 0.8);
+        }
+
+        .card-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .card:nth-child(2) .card-icon {
+            animation-delay: 0.5s;
+        }
+        .card:nth-child(3) .card-icon {
+            animation-delay: 1s;
+        }
+        .card:nth-child(4) .card-icon {
+            animation-delay: 1.5s;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #86efac;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Stats */
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #00ff88;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #4ade80;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            margin-top: 60px;
+        }
+
+        .footer h2 {
+            font-size: 3rem;
+            color: #00ff88;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-section {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+                gap: 20px;
+            }
+            .stats-section {
+                gap: 30px;
+            }
+            .stat-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor personalizado -->
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="cursor-trail" id="trail"></div>
+
+    <!-- Canvas 3D -->
+    <div id="canvas-container"></div>
+
+    <!-- Conteúdo -->
+    <div class="content">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="title-container">
+                <h1 class="main-title">AGRINHO 2026</h1>
+            </div>
+            <p class="subtitle">Tecnologia & Inteligência Artificial no Campo</p>
+            <p class="tagline">🚀 IA + AGRO = FUTURO FODA 🌱</p>
+        </section>
+
+        <!-- Cards -->
+        <section class="cards-section">
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>IA na Agricultura</h3>
+                <p>Inteligência Artificial analisando dados em tempo real, prevendo safras, detectando pragas e otimizando cada centímetro do campo com precisão cirúrgica. O futuro é agora!</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛰️</div>
+                <h3>Drones Inteligentes</h3>
+                <p>Drones autônomos mapeando plantações, aplicando insumos com precisão milimétrica e monitorando a saúde das plantas 24/7. Tecnologia de ponta sobrevoando o agro!</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Big Data Rural</h3>
+                <p>Milhões de dados processados por segundo. Clima, solo, mercado, logística - tudo conectado em tempo real para decisões mais inteligentes e rentáveis.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌿</div>
+                <h3>Sustentabilidade Tech</h3>
+                <p> Tecnologia verde: sensores IoT, agricultura de precisão e IA reduzindo desperdícios, economizando água e protegendo o meio ambiente. Produtividade com responsabilidade!</p>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">+40%</div>
+                <div class="stat-label">Mais Produtividade</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">-30%</div>
+                <div class="stat-label">Menos Desperdício</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Monitoramento IA</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">FODA</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h2>🌾 AGRINHO 2026 🌾</h2>
+            <p style="font-size: 1.5rem; color: #4ade80;">Tecnologia que transforma o campo em algo FODA!</p>
+            <p style="margin-top: 20px; color: #86efac;">#Agrinho2026 #IAnoCampo #FuturoFoda</p>
+        </footer>
+    </div>
+
+    <!-- Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // ============ CENÁRIO 3D FODA ============
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x0a0f0d, 0.0008);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 5, 15);
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.5;
+        container.appendChild(renderer.domElement);
+
+        // Controles orbitais suaves
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.5;
+        controls.maxPolarAngle = Math.PI / 1.8;
+        controls.minDistance = 8;
+        controls.maxDistance = 25;
+        controls.target.set(0, 0.5, 0);
+
+        // Iluminação
+        const ambientLight = new THREE.AmbientLight(0x1a3a1a, 1.5);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xffffff, 8);
+        sunLight.position.set(10, 15, 10);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 2048;
+        sunLight.shadow.mapSize.height = 2048;
+        sunLight.shadow.camera.near = 0.5;
+        sunLight.shadow.camera.far = 50;
+        sunLight.shadow.camera.left = -15;
+        sunLight.shadow.camera.right = 15;
+        sunLight.shadow.camera.top = 15;
+        sunLight.shadow.camera.bottom = -15;
+        scene.add(sunLight);
+
+        const pointLight1 = new THREE.PointLight(0x00ff88, 50, 20);
+        pointLight1.position.set(5, 3, 5);
+        scene.add(pointLight1);
+
+        const pointLight2 = new THREE.PointLight(0x00cc66, 50, 20);
+        pointLight2.position.set(-5, 3, -5);
+        scene.add(pointLight2);
+
+        // Chão
+        const groundGeometry = new THREE.CircleGeometry(12, 64);
+        const groundMaterial = new THREE.MeshStandardMaterial({
+            color: 0x1a3a1a,
+            roughness: 0.8,
+            metalness: 0.2
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -4;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        // Grade no chão
+        const gridHelper = new THREE.PolarGridHelper(10, 32, 20, 64, 0x00ff88, 0x00ff88);
+        gridHelper.position.y = -3.99;
+        scene.add(gridHelper);
+
+        // ============ OBJETOS 3D FODAS ============
+
+        // Esfera central - representa o PLANETA TECH
+        const sphereGeo = new THREE.SphereGeometry(2, 64, 64);
+        const sphereMat = new THREE.MeshStandardMaterial({
+            color: 0x00ff88,
+            roughness: 0.1,
+            metalness: 0.8,
+            emissive: 0x003311,
+            emissiveIntensity: 0.5
+        });
+        const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+        sphere.position.y = 0.5;
+        sphere.castShadow = true;
+        sphere.receiveShadow = true;
+        scene.add(sphere);
+
+        // Anel tecnológico ao redor da esfera
+        const ringGeo = new THREE.TorusGeometry(2.5, 0.08, 32, 100);
+        const ringMat = new THREE.MeshStandardMaterial({
+            color: 0x00ff88,
+            roughness: 0.1,
+            metalness: 1,
+            emissive: 0x00ff88,
+            emissiveIntensity: 2
+        });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.position.y = 0.5;
+        ring.rotation.x = Math.PI / 2;
+        ring.castShadow = true;
+        scene.add(ring);
+
+        // Segundo anel
+        const ring2Geo = new THREE.TorusGeometry(3, 0.06, 32, 100);
+        const ring2 = new THREE.Mesh(ring2Geo, ringMat.clone());
+        ring2.position.y = 0.5;
+        ring2.rotation.x = Math.PI / 3;
+        ring2.rotation.y = Math.PI / 4;
+        scene.add(ring2);
+
+        // Terceiro anel
+        const ring3Geo = new THREE.TorusGeometry(3.5, 0.04, 32, 100);
+        const ring3Mat = new THREE.MeshStandardMaterial({
+            color: 0x4ade80,
+            roughness: 0.1,
+            metalness: 1,
+            emissive: 0x4ade80,
+            emissiveIntensity: 1.5
+        });
+        const ring3 = new THREE.Mesh(ring3Geo, ring3Mat);
+        ring3.position.y = 0.5;
+        ring3.rotation.x = Math.PI / 2.5;
+        ring3.rotation.y = -Math.PI / 3;
+        scene.add(ring3);
+
+        // Partículas flutuantes (IA/data points)
+        const particlesGeo = new THREE.BufferGeometry();
+        const particlesCount = 500;
+        const positions = new Float32Array(particlesCount * 3);
+        const colors = new Float32Array(particlesCount * 3);
+
+        for (let i = 0; i < particlesCount; i++) {
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.random() * Math.PI;
+            const radius = 3 + Math.random() * 7;
+
+            positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+            positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+            positions[i * 3 + 2] = radius * Math.cos(phi);
+
+            colors[i * 3] = 0;
+            colors[i * 3 + 1] = 0.7 + Math.random() * 0.3;
+            colors[i * 3 + 2] = 0.3 + Math.random() * 0.2;
+        }
+
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particlesGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const particlesMat = new THREE.PointsMaterial({
+            size: 0.05,
+            vertexColors: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        const particles = new THREE.Points(particlesGeo, particlesMat);
+        scene.add(particles);
+
+        // Cubos flutuantes representando dados
+        const cubes = [];
+        for (let i = 0; i < 30; i++) {
+            const cubeGeo = new THREE.BoxGeometry(0.15, 0.15, 0.15);
+            const cubeMat = new THREE.MeshStandardMaterial({
+                color: new THREE.Color().setHSL(0.35 + Math.random() * 0.15, 1, 0.5 + Math.random() * 0.3),
+                roughness: 0.1,
+                metalness: 0.9,
+                emissive: new THREE.Color().setHSL(0.35, 1, 0.2),
+                emissiveIntensity: 0.5
+            });
+            const cube = new THREE.Mesh(cubeGeo, cubeMat);
+
+            const angle = (i / 30) * Math.PI * 2;
+            const radius = 4 + Math.random() * 4;
+            cube.position.x = Math.cos(angle) * radius;
+            cube.position.z = Math.sin(angle) * radius;
+            cube.position.y = -2 + Math.random() * 6;
+            cube.rotation.x = Math.random() * Math.PI;
+            cube.rotation.y = Math.random() * Math.PI;
+            cube.castShadow = true;
+            cube.userData = {
+                baseY: cube.position.y,
+                speed: 0.5 + Math.random() * 1.5,
+                amplitude: 0.5 + Math.random() * 2,
+                rotSpeed: 0.01 + Math.random() * 0.03,
+                angle: angle,
+                radius: radius
+            };
+            scene.add(cube);
+            cubes.push(cube);
+        }
+
+        // Árvore tech (representando o agro)
+        function createTechTree(x, y, z) {
+            const group = new THREE.Group();
+
+            // Tronco
+            const trunkGeo = new THREE.CylinderGeometry(0.15, 0.2, 3, 16);
+            const trunkMat = new THREE.MeshStandardMaterial({
+                color: 0x4a3728,
+                roughness: 0.6,
+                metalness: 0.3
+            });
+            const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+            trunk.position.y = 1.5;
+            trunk.castShadow = true;
+            group.add(trunk);
+
+            // Copas (esferas tech)
+            const crownColors = [0x00ff88, 0x4ade80, 0x22c55e, 0x86efac];
+            for (let i = 0; i < 15; i++) {
+                const crownGeo = new THREE.SphereGeometry(0.3 + Math.random() * 0.4, 16, 16);
+                const crownMat = new THREE.MeshStandardMaterial({
+                    color: crownColors[Math.floor(Math.random() * crownColors.length)],
+                    roughness: 0.2,
+                    metalness: 0.7,
+                    emissive: crownColors[Math.floor(Math.random() * crownColors.length)],
+                    emissiveIntensity: 0.3
+                });
+                const crown = new THREE.Mesh(crownGeo, crownMat);
+                crown.position.y = 2.5 + Math.random() * 2.5;
+                crown.position.x = (Math.random() - 0.5) * 2;
+                crown.position.z = (Math.random() - 0.5) * 2;
+                crown.castShadow = true;
+                group.add(crown);
+            }
+
+            group.position.set(x, y, z);
+            scene.add(group);
+            return group;
+        }
+
+        const trees = [];
+        for (let i = 0; i < 8; i++) {
+            const angle = (i / 8) * Math.PI * 2;
+            const radius = 7;
+            const tree = createTechTree(
+                Math.cos(angle) * radius,
+                -4,
+                Math.sin(angle) * radius
+            );
+            trees.push(tree);
+        }
+
+        // Drone 3D
+        function createDrone() {
+            const droneGroup = new THREE.Group();
+
+            // Corpo
+            const bodyGeo = new THREE.BoxGeometry(0.4, 0.1, 0.4);
+            const bodyMat = new THREE.MeshStandardMaterial({
+                color: 0x333333,
+                roughness: 0.2,
+                metalness: 0.9
+            });
+            const body = new THREE.Mesh(bodyGeo, bodyMat);
+            body.castShadow = true;
+            droneGroup.add(body);
+
+            // Luzes
+            const lightGeo = new THREE.SphereGeometry(0.05, 8, 8);
+            const lightMat = new THREE.MeshStandardMaterial({
+                color: 0x00ff88,
+                emissive: 0x00ff88,
+                emissiveIntensity: 2,
+                roughness: 0
+            });
+
+            for (let i = 0; i < 4; i++) {
+                const light = new THREE.Mesh(lightGeo, lightMat);
+                light.position.set(
+                    (i < 2 ? 1 : -1) * 0.25,
+                    0.05,
+                    (i % 2 === 0 ? 1 : -1) * 0.25
+                );
+                droneGroup.add(light);
+            }
+
+            // Hélices
+            for (let i = 0; i < 4; i++) {
+                const propGeo = new THREE.BoxGeometry(0.5, 0.02, 0.08);
+                const propMat = new THREE.MeshStandardMaterial({
+                    color: 0xcccccc,
+                    roughness: 0.1,
+                    metalness: 0.8
+                });
+                const prop = new THREE.Mesh(propGeo, propMat);
+                prop.position.set(
+                    (i < 2 ? 1 : -1) * 0.3,
+                    0.12,
+                    (i % 2 === 0 ? 1 : -1) * 0.3
+                );
+                prop.name = 'propeller';
+                droneGroup.add(prop);
+            }
+
+            return droneGroup;
+        }
+
+        const drone = createDrone();
+        drone.position.set(0, 4, 0);
+        drone.scale.set(1.5, 1.5, 1.5);
+        scene.add(drone);
+
+        // ============ ANIMAÇÃO ============
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const time = clock.getElapsedTime();
+
+            // Rotação dos anéis
+            ring.rotation.z += 0.01;
+            ring2.rotation.z -= 0.008;
+            ring2.rotation.x += 0.005;
+            ring3.rotation.z += 0.012;
+            ring3.rotation.y += 0.006;
+
+            // Esfera pulsante
+            const pulse = 1 + Math.sin(time * 2) * 0.05;
+            sphere.scale.setScalar(pulse);
+            sphere.rotation.y += 0.005;
+            sphere.rotation.x += 0.003;
+
+            // Partículas girando
+            particles.rotation.y += 0.002;
+            particles.rotation.x += 0.001;
+
+            // Cubos animados
+            cubes.forEach(cube => {
+                cube.position.y = cube.userData.baseY + Math.sin(time * cube.userData.speed) * cube.userData
+                    .amplitude;
+                cube.rotation.x += cube.userData.rotSpeed;
+                cube.rotation.y += cube.userData.rotSpeed * 1.5;
+            });
+
+            // Drone voando
+            drone.position.y = 4 + Math.sin(time * 1.5) * 1.5;
+            drone.position.x = Math.cos(time * 0.7) * 3;
+            drone.position.z = Math.sin(time * 0.7) * 3;
+            drone.rotation.y += 0.02;
+            drone.lookAt(sphere.position);
+
+            // Hélices girando
+            drone.children.forEach(child => {
+                if (child.name === 'propeller') {
+                    child.rotation.y += 0.5;
+                }
+            });
+
+            // Árvores balançando
+            trees.forEach((tree, i) => {
+                tree.rotation.y += 0.003;
+                tree.position.y = -4 + Math.sin(time * 0.8 + i) * 0.3;
+            });
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // ============ MOUSE TRAIL FODA ============
+        const cursor = document.getElementById('cursor');
+        const trailContainer = document.getElementById('trail');
+        let mouseX = 0,
+            mouseY = 0;
+        let cursorX = 0,
+            cursorY = 0;
+        const trailParticles = [];
+        const maxTrailParticles = 30;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Criar partícula de rastro
+            const particle = document.createElement('div');
+            particle.className = 'trail-particle';
+            const size = Math.random() * 12 + 4;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = (mouseX - size / 2) + 'px';
+            particle.style.top = (mouseY - size / 2) + 'px';
+            particle.style.background = `radial-gradient(circle, hsl(${140 + Math.random() * 20}, 100%, ${60 + Math.random() * 30}%), transparent)`;
+            particle.style.boxShadow = `0 0 ${size * 2}px rgba(0, 255, 136, 0.8)`;
+
+            document.body.appendChild(particle);
+            trailParticles.push(particle);
+
+            if (trailParticles.length > maxTrailParticles) {
+                const oldParticle = trailParticles.shift();
+                if (oldParticle && oldParticle.parentNode) {
+                    oldParticle.remove();
+                }
+            }
+
+            // Limpar partículas após animação
+            setTimeout(() => {
+                const index = trailParticles.indexOf(particle);
+                if (index > -1) {
+                    trailParticles.splice(index, 1);
+                }
+                if (particle.parentNode) {
+                    particle.remove();
+                }
+            }, 800);
+        });
+
+        // Suavizar cursor
+        function updateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Efeito hover nos cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                cursor.classList.add('active');
+            });
+            card.addEventListener('mouseleave', () => {
+                cursor.classList.remove('active');
+            });
+        });
+
+        // ============ RESPONSIVE ============
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        console.log('🌱 AGRINHO 2026 - Tecnologia FODA no Campo! 🚀');
+        console.log('IA + Agro = Futuro garantido! 💚');
+    </script>
+</body>
+</html>
